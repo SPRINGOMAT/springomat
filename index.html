@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Sprężynomat – zamówienie sprężyny online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <h1>Sprężynomat</h1>
+  <p>Automat ze sprężynami – zamów w kilku prostych krokach</p>
+</header>
+
+<main id="wizard">
+
+  <!-- KROK 1 – Wybór typu -->
+  <section class="step" id="step-1">
+    <h2>Wybierz rodzaj sprężyny</h2>
+    <div class="grid">
+      <button class="type-btn" data-type="compression">Sprężyna naciskowa</button>
+      <button class="type-btn" data-type="tension">Sprężyna naciągowa</button>
+      <button class="type-btn" data-type="torsion">Sprężyna skrętna</button>
+      <button class="type-btn" data-type="plate">Sprężyna talerzowa</button>
+      <button class="type-btn" data-type="other">Inna / opisowa</button>
+    </div>
+    <button class="next hidden" id="to-2">Dalej</button>
+  </section>
+
+  <!-- KROK 2 – Parametry techniczne (dynamicznie w JS) -->
+  <section class="step hidden" id="step-2">
+    <h2>Parametry sprężyny</h2>
+    <form id="params-form"></form>
+    <button class="prev" id="back-1">Cofnij</button>
+    <button class="next" id="to-3">Dalej</button>
+  </section>
+
+  <!-- KROK 3 – Materiał i ilość -->
+  <section class="step hidden" id="step-3">
+    <h2>Materiał i ilość</h2>
+    <label>
+      Materiał sprężynowy:
+      <select id="material-select">
+        <option value="steel">Stal</option>
+        <option value="stainless">Stal nierdzewna</option>
+        <option value="titanium">Tytan</option>
+        <option value="phosphor-bronze">Brąz fosforowy</option>
+      </select>
+    </label>
+    <label>
+      Ilość sztuk:
+      <input type="number" id="quantity" min="1" value="1">
+    </label>
+    <button class="prev" id="back-2">Cofnij</button>
+    <button class="next" id="to-4">Dalej</button>
+  </section>
+
+  <!-- KROK 4 – Dane kontaktowe -->
+  <section class="step hidden" id="step-4">
+    <h2>Dane kontaktowe</h2>
+    <form id="contact-form">
+      <label>Imię i nazwisko / Firma <input type="text" name="name" required></label>
+      <label>E‑mail <input type="email" name="email" required></label>
+      <label>Telefon <input type="tel" name="phone"></label>
+      <label>Adres (opcjonalnie) <input type="text" name="address"></label>
+    </form>
+    <button class="prev" id="back-3">Cofnij</button>
+    <button class="next" id="to-5">Dalej</button>
+  </section>
+
+  <!-- KROK 5 – Podsumowanie i wysyłka -->
+  <section class="step hidden" id="step-5">
+    <h2>Podsumowanie zamówienia</h2>
+    <div id="summary"></div>
+    <button class="prev" id="back-4">Cofnij</button>
+    <button id="send-order">Wyślij zapytanie</button>
+  </section>
+
+  <!-- KROK 6 – Potwierdzenie -->
+  <section class="step hidden" id="step-6">
+    <h2>Dziękujemy!</h2>
+    <p>Twoje zapytanie zostało wysłane. Odpowiemy w ciągu 2–3 dni roboczych.</p>
+    <p>Jeśli masz pytania, napisz na <a href="mailto:info@sprężynomat.pl">info@sprężynomat.pl</a>.</p>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
