@@ -165,7 +165,7 @@ document.getElementById('send-order').addEventListener('click', async () => {
 
   // 2️⃣ wyślij do Formspree (lub EmailJS)
   //   - w tym przykładzie używamy Formspree (wymaga endpointu)
-  const FORM_ENDPOINT = 'https://formspree.io/f/your_form_id'; // <-- podmień
+  const FORM_ENDPOINT = 'https://formspree.io/f/mzdgrqdd'; // <-- podmień
 
   try {
     const resp = await fetch(FORM_ENDPOINT, {
