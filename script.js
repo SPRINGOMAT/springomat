@@ -1,4 +1,4 @@
-// ---------- GLOBAL STATE ----------
+/* ---------- GLOBAL STATE ---------- */
 const order = {
   type: null,
   params: {},
@@ -7,33 +7,31 @@ const order = {
   contact: {}
 };
 
-// ---------- HELPERS ----------
+/* ---------- UTILS ---------- */
 function showStep(id) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// ---------- STEP 1 – TYPE ----------
+/* ---------- STEP 1 – TYPE ---------- */
 document.querySelectorAll('.type-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    // zaznacz wybrany przycisk
     document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
-
     order.type = btn.dataset.type;
     document.getElementById('to-2').classList.remove('hidden');
   });
 });
 
 document.getElementById('to-2').addEventListener('click', () => {
-  generateParamFields();
+  generateParamFields();   // tworzy pola w kroku 2
   showStep('step-2');
 });
 
-// ---------- STEP 2 – PARAMETRY ----------
+/* ---------- STEP 2 – PARAMETERS ---------- */
 function generateParamFields() {
   const container = document.getElementById('params-form');
-  container.innerHTML = ''; // reset
+  container.innerHTML = '';
 
   const fields = {
     compression: [
@@ -112,20 +110,20 @@ function generateParamFields() {
   });
 }
 
-// Zapis parametrów i przejście dalej
+/* Zapis parametrów i przejście dalej */
 document.getElementById('to-3').addEventListener('click', () => {
   const form = new FormData(document.getElementById('params-form'));
   order.params = Object.fromEntries(form.entries());
   showStep('step-3');
 });
 
-// ---------- NAVIGATION BACK ----------
+/* ---------- NAVIGATION BACK ---------- */
 document.getElementById('back-1').onclick = () => showStep('step-1');
 document.getElementById('back-2').onclick = () => showStep('step-2');
 document.getElementById('back-3').onclick = () => showStep('step-3');
 document.getElementById('back-4').onclick = () => showStep('step-4');
 
-// ---------- STEP 3 – MATERIAL ----------
+/* ---------- STEP 3 – MATERIAL ---------- */
 document.getElementById('material-select').addEventListener('change', e => {
   order.material = e.target.value;
 });
@@ -133,12 +131,11 @@ document.getElementById('quantity').addEventListener('input', e => {
   order.quantity = Number(e.target.value);
 });
 document.getElementById('to-4').addEventListener('click', () => {
-  // domyślne wartości, jeśli nie wybrano
   if (!order.material) order.material = document.getElementById('material-select').value;
   showStep('step-4');
 });
 
-// ---------- STEP 4 – CONTACT ----------
+/* ---------- STEP 4 – CONTACT ---------- */
 document.getElementById('to-5').addEventListener('click', () => {
   const form = new FormData(document.getElementById('contact-form'));
   order.contact = Object.fromEntries(form.entries());
@@ -155,17 +152,15 @@ document.getElementById('to-5').addEventListener('click', () => {
   showStep('step-5');
 });
 
-// ---------- STEP 5 – SEND ----------
+/* ---------- STEP 5 – SEND ---------- */
+// 👉 Zastąp poniższy URL swoim endpointem z Formspree (lub innym serwisem)
+const FORM_ENDPOINT = 'https://formspree.io/f/mzdgrqdd';   // <‑‑ <<< ZMIEŃ TO
+
 document.getElementById('send-order').addEventListener('click', async () => {
-  // 1️⃣ przygotuj payload
   const payload = {
     ...order,
     timestamp: new Date().toISOString()
   };
-
-  // 2️⃣ wyślij do Formspree (lub EmailJS)
-  //   - w tym przykładzie używamy Formspree (wymaga endpointu)
-  const FORM_ENDPOINT = 'https://formspree.io/f/mzdgrqdd'; // <-- podmień
 
   try {
     const resp = await fetch(FORM_ENDPOINT, {
@@ -177,4 +172,10 @@ document.getElementById('send-order').addEventListener('click', async () => {
     if (resp.ok) {
       showStep('step-6');
     } else {
-      alert('Wysyłka nie powiodła się –
+      alert('Wysyłka nie powiodła się – spróbuj ponownie.');
+    }
+  } catch (e) {
+    console.error(e);
+    alert('Błąd podczas wysyłania. Sprawdź konsolę przeglądarki.');
+  }
+});

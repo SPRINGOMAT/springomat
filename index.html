@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Sprężynomat – zamówienie sprężyny online</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"><!-- łączenie CSS -->
 </head>
 <body>
 
@@ -15,8 +15,8 @@
 
 <main id="wizard">
 
-  <!-- KROK 1 – Wybór typu -->
-  <section class="step" id="step-1">
+  <!-- ==================== KROK 1 – WYBÓR TYPU ==================== -->
+  <section class="step active" id="step-1">
     <h2>Wybierz rodzaj sprężyny</h2>
     <div class="grid">
       <button class="type-btn" data-type="compression">Sprężyna naciskowa</button>
@@ -28,7 +28,7 @@
     <button class="next hidden" id="to-2">Dalej</button>
   </section>
 
-  <!-- KROK 2 – Parametry techniczne (dynamicznie w JS) -->
+  <!-- ==================== KROK 2 – PARAMETRY ==================== -->
   <section class="step hidden" id="step-2">
     <h2>Parametry sprężyny</h2>
     <form id="params-form"></form>
@@ -36,7 +36,7 @@
     <button class="next" id="to-3">Dalej</button>
   </section>
 
-  <!-- KROK 3 – Materiał i ilość -->
+  <!-- ==================== KROK 3 – MATERIAŁ & ILOŚĆ ==================== -->
   <section class="step hidden" id="step-3">
     <h2>Materiał i ilość</h2>
     <label>
@@ -56,7 +56,7 @@
     <button class="next" id="to-4">Dalej</button>
   </section>
 
-  <!-- KROK 4 – Dane kontaktowe -->
+  <!-- ==================== KROK 4 – KONTAKT ==================== -->
   <section class="step hidden" id="step-4">
     <h2>Dane kontaktowe</h2>
     <form id="contact-form">
@@ -69,7 +69,7 @@
     <button class="next" id="to-5">Dalej</button>
   </section>
 
-  <!-- KROK 5 – Podsumowanie i wysyłka -->
+  <!-- ==================== KROK 5 – PODSUMOWANIE ==================== -->
   <section class="step hidden" id="step-5">
     <h2>Podsumowanie zamówienia</h2>
     <div id="summary"></div>
@@ -77,15 +77,16 @@
     <button id="send-order">Wyślij zapytanie</button>
   </section>
 
-  <!-- KROK 6 – Potwierdzenie -->
+  <!-- ==================== KROK 6 – POTWIERDZENIE ==================== -->
   <section class="step hidden" id="step-6">
     <h2>Dziękujemy!</h2>
     <p>Twoje zapytanie zostało wysłane. Odpowiemy w ciągu 2–3 dni roboczych.</p>
-    <p>Jeśli masz pytania, napisz na <a href="mailto:info@sprężynomat.pl">info@sprężynomat.pl</a>.</p>
+    <p>W razie pytań napisz na <a href="mailto:info@sprężynomat.pl">info@sprężynomat.pl</a>.</p>
   </section>
 
 </main>
 
+<!-- ŁĄCZYMY SKRYPT NA KOŃCU BODY, aby DOM już istniał -->
 <script src="script.js"></script>
 </body>
 </html>
