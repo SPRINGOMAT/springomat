@@ -12,8 +12,21 @@ main { max-width:800px; margin:auto; padding:1rem; }
 .step.active { display:block; }
 
 .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin:1rem 0; }
-.type-btn { padding:1rem; border:2px solid #0066cc; border-radius:8px; background:#fff; cursor:pointer; transition:.2s; }
-.type-btn:hover, .type-btn.selected { background:#0066cc; color:#fff; }
+.type-btn {
+  padding: 1rem;
+  border: 2px solid #0066cc;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;               /* czarny tekst */
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  outline: none;              /* usuwa domyślny obrys */
+}
+.type-btn:hover,
+.type-btn.selected {
+  background: #0066cc;
+  color: #fff;               /* biały tekst */
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
 
 label { display:block; margin:0.8rem 0; }
 input, select, textarea { width:100%; padding:0.5rem; margin-top:0.3rem; border:1px solid #ccc; border-radius:4px; }
