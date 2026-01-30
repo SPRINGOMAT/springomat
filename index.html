@@ -25,21 +25,28 @@
   </div>
 
   <!-- ======== KROK 1 – WYBÓR TYPU SPRĘŻYNY ======== -->
-  <section class="step active" id="step-1">
-    <h2>Wybierz rodzaj sprężyny</h2>
+  <!-- KROK 1 – WYBÓR TYPU SPRĘŻYNY -->
+<section class="step active" id="step-1">
+  <h2 data-key="chooseType">Wybierz rodzaj sprężyny</h2>
 
-    <div class="selection-wrapper">
-      <div class="grid type-grid">
-        <button class="type-btn" data-type="compression">Sprężyna naciskowa</button>
-        <button class="type-btn" data-type="tension">Sprężyna naciągowa</button>
-        <button class="type-btn" data-type="torsion">Sprężyna skrętna</button>
-        <button class="type-btn" data-type="plate">Sprężyna talerzowa</button>
-        <button class="type-btn" data-type="other">Inna / opisowa</button>
-      </div>
-
-      <div id="illustration" class="illustration"></div>
+  <div class="selection-wrapper">
+    <div class="grid type-grid">
+      <!-- Każdy przycisk ma explicite type="button" -->
+      <button class="type-btn" data-type="compression" type="button"
+              data-key="compression">Sprężyna naciskowa</button>
+      <button class="type-btn" data-type="tension" type="button"
+              data-key="tension">Sprężyna naciągowa</button>
+      <button class="type-btn" data-type="torsion" type="button"
+              data-key="torsion">Sprężyna skrętna</button>
+      <button class="type-btn" data-type="plate" type="button"
+              data-key="plate">Sprężyna talerzowa</button>
+      <button class="type-btn" data-type="other" type="button"
+              data-key="other">Inna / opisowa</button>
     </div>
-  </section>
+
+    <div id="illustration" class="illustration"></div>
+  </div>
+</section>
 
   <!-- ======== KROK 2 – PARAMETRY SPRĘŻYNY ======== -->
   <section class="step hidden" id="step-2">
