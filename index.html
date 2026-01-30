@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Sprężynomat – zamówienie sprężyny online</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css"><!-- łączenie CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -15,30 +15,47 @@
 
 <main id="wizard">
 
-  <!-- ==================== KROK 1 – WYBÓR TYPU ==================== -->
+  <!-- ======== PROGRESS BAR ======== -->
+  <div class="progress-bar">
+    <div class="progress-step active" data-step="1">1</div>
+    <div class="progress-step" data-step="2">2</div>
+    <div class="progress-step" data-step="3">3</div>
+    <div class="progress-step" data-step="4">4</div>
+    <div class="progress-step" data-step="5">5</div>
+  </div>
+
+  <!-- ======== KROK 1 – WYBÓR TYPU SPRĘŻYNY ======== -->
   <section class="step active" id="step-1">
     <h2>Wybierz rodzaj sprężyny</h2>
-    <div class="grid">
-      <button class="type-btn" data-type="compression">Sprężyna naciskowa</button>
-      <button class="type-btn" data-type="tension">Sprężyna naciągowa</button>
-      <button class="type-btn" data-type="torsion">Sprężyna skrętna</button>
-      <button class="type-btn" data-type="plate">Sprężyna talerzowa</button>
-      <button class="type-btn" data-type="other">Inna / opisowa</button>
+
+    <div class="selection-wrapper">
+      <div class="grid type-grid">
+        <button class="type-btn" data-type="compression">Sprężyna naciskowa</button>
+        <button class="type-btn" data-type="tension">Sprężyna naciągowa</button>
+        <button class="type-btn" data-type="torsion">Sprężyna skrętna</button>
+        <button class="type-btn" data-type="plate">Sprężyna talerzowa</button>
+        <button class="type-btn" data-type="other">Inna / opisowa</button>
+      </div>
+
+      <div id="illustration" class="illustration"></div>
     </div>
-    <button class="next hidden" id="to-2">Dalej</button>
   </section>
 
-  <!-- ==================== KROK 2 – PARAMETRY ==================== -->
+  <!-- ======== KROK 2 – PARAMETRY SPRĘŻYNY ======== -->
   <section class="step hidden" id="step-2">
     <h2>Parametry sprężyny</h2>
     <form id="params-form"></form>
-    <button class="prev" id="back-1">Cofnij</button>
-    <button class="next" id="to-3">Dalej</button>
+
+    <div class="nav-buttons">
+      <button class="prev" id="back-1">Cofnij</button>
+      <button class="next" id="to-3">Dalej</button>
+    </div>
   </section>
 
-  <!-- ==================== KROK 3 – MATERIAŁ & ILOŚĆ ==================== -->
+  <!-- ======== KROK 3 – MATERIAŁ & ILOŚĆ ======== -->
   <section class="step hidden" id="step-3">
     <h2>Materiał i ilość</h2>
+
     <label>
       Materiał sprężynowy:
       <select id="material-select">
@@ -48,15 +65,19 @@
         <option value="phosphor-bronze">Brąz fosforowy</option>
       </select>
     </label>
+
     <label>
       Ilość sztuk:
       <input type="number" id="quantity" min="1" value="1">
     </label>
-    <button class="prev" id="back-2">Cofnij</button>
-    <button class="next" id="to-4">Dalej</button>
+
+    <div class="nav-buttons">
+      <button class="prev" id="back-2">Cofnij</button>
+      <button class="next" id="to-4">Dalej</button>
+    </div>
   </section>
 
-  <!-- ==================== KROK 4 – KONTAKT ==================== -->
+  <!-- ======== KROK 4 – KONTAKT ======== -->
   <section class="step hidden" id="step-4">
     <h2>Dane kontaktowe</h2>
     <form id="contact-form">
@@ -65,19 +86,25 @@
       <label>Telefon <input type="tel" name="phone"></label>
       <label>Adres (opcjonalnie) <input type="text" name="address"></label>
     </form>
-    <button class="prev" id="back-3">Cofnij</button>
-    <button class="next" id="to-5">Dalej</button>
+
+    <div class="nav-buttons">
+      <button class="prev" id="back-3">Cofnij</button>
+      <button class="next" id="to-5">Dalej</button>
+    </div>
   </section>
 
-  <!-- ==================== KROK 5 – PODSUMOWANIE ==================== -->
+  <!-- ======== KROK 5 – PODSUMOWANIE / WYSŁANIE ======== -->
   <section class="step hidden" id="step-5">
     <h2>Podsumowanie zamówienia</h2>
     <div id="summary"></div>
-    <button class="prev" id="back-4">Cofnij</button>
-    <button id="send-order">Wyślij zapytanie</button>
+
+    <div class="nav-buttons">
+      <button class="prev" id="back-4">Cofnij</button>
+      <button id="send-order">Wyślij zapytanie</button>
+    </div>
   </section>
 
-  <!-- ==================== KROK 6 – POTWIERDZENIE ==================== -->
+  <!-- ======== KROK 6 – POTWIERDZENIE ======== -->
   <section class="step hidden" id="step-6">
     <h2>Dziękujemy!</h2>
     <p>Twoje zapytanie zostało wysłane. Odpowiemy w ciągu 2–3 dni roboczych.</p>
@@ -86,7 +113,12 @@
 
 </main>
 
-<!-- ŁĄCZYMY SKRYPT NA KOŃCU BODY, aby DOM już istniał -->
-<script src="script.js"></script>
+<!-- Language switcher (i18n) -->
+<div class="lang-switcher">
+  <button data-lang="pl" class="lang-btn selected">PL</button>
+  <button data-lang="en" class="lang-btn">EN</button>
+</div>
+
+<script src="dist/script.js"></script>
 </body>
 </html>
