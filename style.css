@@ -109,10 +109,10 @@ main {
 .illustration {
   flex: 0 0 260px;
   height: 260px;
-  position: relative;        /* kontekst dla z‑index */
+  position: relative;
   overflow: hidden;
   z-index: 1;                /* niższy niż przyciski */
-  pointer-events: none;      /* klikanie „przez” ilustrację */
+  pointer-events: none;      /* kluczowe – pozwala kliknąć „przez” ilustrację */
 }
 
 /* --------------------------------------------------------------

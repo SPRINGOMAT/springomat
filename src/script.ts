@@ -187,12 +187,15 @@ typeButtons.forEach(btn => {
     // zapisz wybrany typ w stanie aplikacji
     order.type = type;
 
+    // DEBUG – sprawdź w konsoli, czy typ został zapisany
+    console.log("Wybrano typ:", order.type);
+
     // pokaż ilustrację od razu
     setIllustration(type);
 
-    /* ---- TERAZ generujemy pola i przechodzimy do kroku‑2 ---- */
+    // **GENERUJEMY pola przed przejściem do kroku‑2**
     if (order.type) {
-      generateParamFields();   // <‑‑ TWÓJ NOWY KROK
+      generateParamFields();   // <‑‑ TERAZ pola się pojawią
       showStep(1);             // przejście do kroku‑2 (parametry)
     }
   });
@@ -339,90 +342,4 @@ function generateParamFields(): void {
 document.getElementById("to-3")?.addEventListener("click", () => {
   const form = new FormData(document.getElementById("params-form") as HTMLFormElement);
   order.params = Object.fromEntries(form.entries()) as Record<string, string>;
-  showStep(2); // krok‑3 (materiał & ilość)
-});
-
-/* ==============================================================
-   NAVIGACJA „Cofnij”
-================================================================ */
-Object.entries(prevButtons).forEach(([stepStr, btn]) => {
-  const stepNum = Number(stepStr);
-  btn?.addEventListener("click", () => showStep(stepNum - 1));
-});
-
-/* ==============================================================
-   KROK 3 – MATERIAŁ & ILOŚĆ
-================================================================ */
-const materialSelect = document.getElementById(
-  "material-select"
-) as HTMLSelectElement;
-materialSelect.addEventListener("change", e => {
-  order.material = (e.target as HTMLSelectElement).value;
-});
-
-const quantityInput = document.getElementById(
-  "quantity"
-) as HTMLInputElement;
-quantityInput.addEventListener("input", e => {
-  order.quantity = Number((e.target as HTMLInputElement).value);
-});
-
-document.getElementById("to-4")?.addEventListener("click", () => {
-  if (!order.material) order.material = materialSelect.value;
-  showStep(3); // krok‑4 (kontakt)
-});
-
-/* ==============================================================
-   KROK 4 – DANE KONTAKTOWE
-================================================================ */
-document.getElementById("to-5")?.addEventListener("click", () => {
-  const form = new FormData(
-    document.getElementById("contact-form") as HTMLFormElement
-  );
-  order.contact = Object.fromEntries(form.entries()) as Order["contact"];
-
-  // podsumowanie
-  const summaryDiv = document.getElementById("summary") as HTMLElement;
-  summaryDiv.innerHTML = `
-    <strong>Rodzaj:</strong> ${order.type} 
-    <strong>Parametry:</strong> ${JSON.stringify(order.params)} 
-    <strong>Materiał:</strong> ${order.material} 
-    <strong>Ilość:</strong> ${order.quantity} 
-    <strong>Dane kontaktowe:</strong> ${JSON.stringify(order.contact)}
-  `;
-  showStep(4); // krok‑5 (podsumowanie)
-});
-
-/* ==============================================================
-   KROK 5 – WYSŁANIE ZAPYTANIA
-================================================================ */
-const FORM_ENDPOINT = "https://formspree.io/f/your_form_id"; // <-- podmień na swój endpoint
-
-sendBtn.addEventListener("click", async () => {
-  const payload = {
-    ...order,
-    timestamp: new Date().toISOString()
-  };
-
-  try {
-    const resp = await fetch(FORM_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    if (resp.ok) {
-      showStep(5); // krok‑6 (podziękowanie)
-    } else {
-      alert("Wysyłka nie powiodła się – spróbuj ponownie.");
-    }
-  } catch (e) {
-    console.error(e);
-    alert("Błąd podczas wysyłania. Sprawdź konsolę przeglądarki.");
-  }
-});
-
-/* ==============================================================
-   INICJALIZACJA – uruchamiamy pierwszy krok
-================================================================ */
-show
+  showStep(2); // krok‑3 (
