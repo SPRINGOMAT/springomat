@@ -15,53 +15,51 @@
 
 <main id="wizard">
 
-  <!-- ======== PROGRESS BAR ======== -->
+  <!-- ===================== PROGRESS BAR ===================== -->
   <div class="progress-bar">
-    <div class="progress-step active" data-step="1">1</div>
+    <div class="progress-step" data-step="1">1</div>
     <div class="progress-step" data-step="2">2</div>
     <div class="progress-step" data-step="3">3</div>
     <div class="progress-step" data-step="4">4</div>
     <div class="progress-step" data-step="5">5</div>
   </div>
 
-  <!-- ======== KROK 1 – WYBÓR TYPU SPRĘŻYNY ======== -->
-  <!-- KROK 1 – WYBÓR TYPU SPRĘŻYNY -->
-<section class="step active" id="step-1">
-  <h2 data-key="chooseType">Wybierz rodzaj sprężyny</h2>
+  <!-- ===================== KROK 1 – WYBÓR TYPU SPRĘŻYNY ===================== -->
+  <section class="step active" id="step-1">
+    <h2 data-key="chooseType">Wybierz rodzaj sprężyny</h2>
 
-  <div class="selection-wrapper">
-    <div class="grid type-grid">
-      <!-- UWAGA: każdy przycisk ma type="button" -->
-      <button class="type-btn" data-type="compression" type="button"
-              data-key="compression">Sprężyna naciskowa</button>
-      <button class="type-btn" data-type="tension" type="button"
-              data-key="tension">Sprężyna naciągowa</button>
-      <button class="type-btn" data-type="torsion" type="button"
-              data-key="torsion">Sprężyna skrętna</button>
-      <button class="type-btn" data-type="plate" type="button"
-              data-key="plate">Sprężyna talerzowa</button>
-      <button class="type-btn" data-type="other" type="button"
-              data-key="other">Inna / opisowa</button>
+    <div class="selection-wrapper">
+      <div class="grid type-grid">
+        <button class="type-btn" data-type="compression" type="button"
+                data-key="compression">Sprężyna naciskowa</button>
+        <button class="type-btn" data-type="tension" type="button"
+                data-key="tension">Sprężyna naciągowa</button>
+        <button class="type-btn" data-type="torsion" type="button"
+                data-key="torsion">Sprężyna skrętna</button>
+        <button class="type-btn" data-type="plate" type="button"
+                data-key="plate">Sprężyna talerzowa</button>
+        <button class="type-btn" data-type="other" type="button"
+                data-key="other">Inna / opisowa</button>
+      </div>
+
+      <div id="illustration" class="illustration"></div>
     </div>
+  </section>
 
-    <div id="illustration" class="illustration"></div>
-  </div>
-</section>
+  <!-- ===================== KROK 2 – PARAMETRY SPRĘŻYNY ===================== -->
+  <section class="step hidden" id="step-2">
+    <h2 data-key="parameters">Parametry sprężyny</h2>
+    <form id="params-form"></form>
 
-<!-- KROK 2 – PARAMETRY SPRĘŻYNY -->
-<section class="step hidden" id="step-2">
-  <h2 data-key="parameters">Parametry sprężyny</h2>
-  <form id="params-form"></form>
+    <div class="nav-buttons">
+      <button class="prev" id="back-1">Cofnij</button>
+      <button class="next" id="to-3">Dalej</button>
+    </div>
+  </section>
 
-  <div class="nav-buttons">
-    <button class="prev" id="back-1">Cofnij</button>
-    <button class="next" id="to-3">Dalej</button>
-  </div>
-</section>
-
-  <!-- ======== KROK 3 – MATERIAŁ & ILOŚĆ ======== -->
+  <!-- ===================== KROK 3 – MATERIAŁ & ILOŚĆ ===================== -->
   <section class="step hidden" id="step-3">
-    <h2>Materiał i ilość</h2>
+    <h2 data-key="materialQty">Materiał i ilość</h2>
 
     <label>
       Materiał sprężynowy:
@@ -84,9 +82,9 @@
     </div>
   </section>
 
-  <!-- ======== KROK 4 – KONTAKT ======== -->
+  <!-- ===================== KROK 4 – DANE KONTAKTOWE ===================== -->
   <section class="step hidden" id="step-4">
-    <h2>Dane kontaktowe</h2>
+    <h2 data-key="contact">Dane kontaktowe</h2>
     <form id="contact-form">
       <label>Imię i nazwisko / Firma <input type="text" name="name" required></label>
       <label>E‑mail <input type="email" name="email" required></label>
@@ -100,9 +98,9 @@
     </div>
   </section>
 
-  <!-- ======== KROK 5 – PODSUMOWANIE / WYSŁANIE ======== -->
+  <!-- ===================== KROK 5 – PODSUMOWANIE / WYSŁANIE ===================== -->
   <section class="step hidden" id="step-5">
-    <h2>Podsumowanie zamówienia</h2>
+    <h2 data-key="summary">Podsumowanie zamówienia</h2>
     <div id="summary"></div>
 
     <div class="nav-buttons">
@@ -111,10 +109,10 @@
     </div>
   </section>
 
-  <!-- ======== KROK 6 – POTWIERDZENIE ======== -->
+  <!-- ===================== KROK 6 – POTWIERDZENIE ===================== -->
   <section class="step hidden" id="step-6">
-    <h2>Dziękujemy!</h2>
-    <p>Twoje zapytanie zostało wysłane. Odpowiemy w ciągu 2–3 dni roboczych.</p>
+    <h2 data-key="thankYou">Dziękujemy!</h2>
+    <p data-key="thankMsg">Twoje zapytanie zostało wysłane. Odpowiemy w ciągu 2–3 dni roboczych.</p>
     <p>W razie pytań napisz na <a href="mailto:info@sprężynomat.pl">info@sprężynomat.pl</a>.</p>
   </section>
 

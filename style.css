@@ -1,6 +1,6 @@
-/* ==============================================================
+/* --------------------------------------------------------------
    RESET + PODSTAWY
-================================================================ */
+---------------------------------------------------------------- */
 *,
 *::before,
 *::after {
@@ -19,9 +19,9 @@ body {
   color: #333;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    HERO (nagłówek)
-================================================================ */
+---------------------------------------------------------------- */
 header.hero {
   text-align: center;
   padding: 2rem;
@@ -32,18 +32,18 @@ header.hero h1 {
   font-size: 2.5rem;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    MAIN CONTAINER
-================================================================ */
+---------------------------------------------------------------- */
 main {
   max-width: 900px;
   margin: auto;
   padding: 1rem;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    PROGRESS BAR
-================================================================ */
+---------------------------------------------------------------- */
 .progress-bar {
   display: flex;
   justify-content: space-between;
@@ -66,9 +66,9 @@ main {
   color: #fff;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    STEPS (każda sekcja formularza)
-================================================================ */
+---------------------------------------------------------------- */
 .step {
   display: none;
 }
@@ -76,9 +76,9 @@ main {
   display: block;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    SELECTION WRAPPER – przyciski po lewej, ilustracja po prawej
-================================================================ */
+---------------------------------------------------------------- */
 .selection-wrapper {
   display: flex;
   align-items: flex-start;
@@ -89,7 +89,7 @@ main {
 }
 
 /* --------------------------------------------------------------
-   PRZYCISKI WYBORU SPRĘŻYNY – pewny front nad wszystkimi warstwami
+   PRZYCISKI WYBORU SPRĘŻYNY
 ---------------------------------------------------------------- */
 .type-btn {
   padding: 1rem;
@@ -99,8 +99,13 @@ main {
   color: #000;               /* czarny tekst w stanie normalnym */
   cursor: pointer;
   transition: background .2s, color .2s;
-  position: relative;        /* potrzebne, żeby z‑index działał */
-  z-index: 9999;             /* bardzo wysoki – ponad ilustrację i innymi elementami */
+  position: relative;
+  z-index: 10;               /* zawsze nad ilustracją */
+}
+.type-btn:hover,
+.type-btn.selected {
+  background: #0066cc;
+  color: #fff;
 }
 
 /* --------------------------------------------------------------
@@ -111,40 +116,23 @@ main {
   height: 260px;
   position: relative;
   overflow: hidden;
-  z-index: 1;                /* niższy niż przyciski */
-  pointer-events: none;      /* kluczowe – pozwala kliknąć „przez” ilustrację */
+  z-index: 1;                /* pod przyciskami */
+  pointer-events: none;      /* pozwala klikać „przez” ilustrację */
+}
+.illustration img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+.illustration.show img {
+  opacity: 1;
 }
 
 /* --------------------------------------------------------------
-   Upewnij się, że żaden rodzic nie wyłącza pointer‑events
----------------------------------------------------------------- */
-.selection-wrapper,
-.type-grid,
-.grid,
-.step,
-.main,
-body,
-html {
-  pointer-events: auto;      /* reset – w razie gdyby gdzieś było none */
-}
-
-/* --------------------------------------------------------------
-   DODATKOWE POPRAWKI (jeśli wciąż nie działa)
----------------------------------------------------------------- */
-/* Jeśli masz dodatkowy overlay (np. .overlay) – wyłącz mu pointer‑events */
-.overlay {
-  pointer-events: none;
-}
-
-/* Dla pewności – wymuś kliknięcia na przyciskach */
-.type-btn,
-.type-btn * {
-  pointer-events: auto !important;
-}
-
-/* ==============================================================
    NAVIGATION BUTTONS (Dalej / Cofnij)
-================================================================ */
+---------------------------------------------------------------- */
 .nav-buttons {
   margin-top: 1rem;
 }
@@ -164,9 +152,9 @@ button.hidden {
   visibility: hidden;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    INPUTS & LABELS
-================================================================ */
+---------------------------------------------------------------- */
 label {
   display: block;
   margin: 0.8rem 0;
@@ -201,9 +189,9 @@ textarea:valid {
   margin-top: 0.2rem;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    PODSUMOWANIE
-================================================================ */
+---------------------------------------------------------------- */
 #summary {
   background: #fff;
   padding: 1rem;
@@ -212,9 +200,9 @@ textarea:valid {
   margin: 1rem 0;
 }
 
-/* ==============================================================
+/* --------------------------------------------------------------
    LANGUAGE SWITCHER
-================================================================ */
+---------------------------------------------------------------- */
 .lang-switcher {
   position: fixed;
   bottom: 1rem;
@@ -224,3 +212,40 @@ textarea:valid {
   background: #fff;
   color: #0066cc;
   border: 1px solid #0066cc;
+  padding: 0.4rem 0.8rem;
+  margin-left: 0.3rem;
+  border-radius: 4px;
+}
+.lang-btn.selected {
+  background: #0066cc;
+  color: #fff;
+}
+
+/* --------------------------------------------------------------
+   RESPONSIVE (tablety / telefony)
+---------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .selection-wrapper {
+    flex-direction: column;
+  }
+  .illustration {
+    width: 100%;
+    height: 200px;
+    margin-top: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------
+   DODATKOWE MAŁE POPRAWKI
+---------------------------------------------------------------- */
+#to-2 { display: none !important; }   /* przycisk „Dalej” w kroku‑1 już nie istnieje */
+
+.progress-step::after {
+  content: attr(data-step);
+}
+.progress-step.active {
+  font-weight: bold;
+}
+.illustration {
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
