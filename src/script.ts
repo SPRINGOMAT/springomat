@@ -121,10 +121,16 @@ function t(key: keyof typeof translations["pl"]): string {
    UTILS – zmiana kroków, progress‑bar, itp.
 ================================================================ */
 function showStep(idx: number): void {
+  // 1️⃣ usuń klasy `active` i `hidden` ze wszystkich kroków
   steps.forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.classList.remove("active");
+    if (el) {
+      el.classList.remove("active");
+      el.classList.remove("hidden");   // <‑‑ USUWAMY ukrycie
+    }
   });
+
+  // 2️⃣ dodaj klasę `active` do wybranego kroku
   const target = document.getElementById(steps[idx]);
   if (target) target.classList.add("active");
 
