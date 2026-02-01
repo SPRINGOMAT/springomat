@@ -89,7 +89,7 @@ main {
 }
 
 /* --------------------------------------------------------------
-   PRZYCISKI WYBORU SPRĘŻYNY
+   PRZYCISKI WYBORU SPRĘŻYNY – pewny front nad wszystkimi warstwami
 ---------------------------------------------------------------- */
 .type-btn {
   padding: 1rem;
@@ -98,35 +98,48 @@ main {
   background: #fff;
   color: #000;               /* czarny tekst w stanie normalnym */
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  position: relative;        /* potrzebne dla z-index */
-  z-index: 2;                /* przyciski nad ilustracją */
-}
-.type-btn:hover,
-.type-btn.selected {
-  background: #0066cc;
-  color: #fff;
+  transition: background .2s, color .2s;
+  position: relative;        /* potrzebne, żeby z‑index działał */
+  z-index: 9999;             /* bardzo wysoki – ponad ilustrację i innymi elementami */
 }
 
 /* --------------------------------------------------------------
-   ILLUSTRACJA (po prawej stronie)
+   ILLUSTRACJA – nie blokuje kliknięć
 ---------------------------------------------------------------- */
 .illustration {
   flex: 0 0 260px;
   height: 260px;
-  position: relative;        /* aby mogła przyjmować z‑indeks */
+  position: relative;        /* kontekst dla z‑index */
   overflow: hidden;
-  z-index: 1;                /* pod przyciskami */
+  z-index: 1;                /* niższy niż przyciski */
+  pointer-events: none;      /* klikanie „przez” ilustrację */
 }
-.illustration img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+
+/* --------------------------------------------------------------
+   Upewnij się, że żaden rodzic nie wyłącza pointer‑events
+---------------------------------------------------------------- */
+.selection-wrapper,
+.type-grid,
+.grid,
+.step,
+.main,
+body,
+html {
+  pointer-events: auto;      /* reset – w razie gdyby gdzieś było none */
 }
-.illustration.show img {
-  opacity: 1;
+
+/* --------------------------------------------------------------
+   DODATKOWE POPRAWKI (jeśli wciąż nie działa)
+---------------------------------------------------------------- */
+/* Jeśli masz dodatkowy overlay (np. .overlay) – wyłącz mu pointer‑events */
+.overlay {
+  pointer-events: none;
+}
+
+/* Dla pewności – wymuś kliknięcia na przyciskach */
+.type-btn,
+.type-btn * {
+  pointer-events: auto !important;
 }
 
 /* ==============================================================
