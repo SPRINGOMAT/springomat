@@ -1,4 +1,5 @@
 "use strict";
+var _a, _b, _c;
 /* Początkowy stan */
 const order = {
     type: null,
@@ -261,7 +262,90 @@ function generateParamFields() {
         else {
             input = document.createElement("input");
             input.type = "number";
-            input.step = "a;
+            // *** POPRAWIONA LINIA ***
+            input.step = "any";
         }
+        input.name = f.key;
+        input.required = true;
+        label.appendChild(input);
+        wrapper.appendChild(label);
+        container.appendChild(wrapper);
     });
 }
+/* ---- Przejście dalej po wypełnieniu parametrów ---- */
+(_a = document.getElementById("to-3")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+    const form = new FormData(document.getElementById("params-form"));
+    order.params = Object.fromEntries(form.entries());
+    showStep(2); // krok‑3 (materiał & ilość)
+});
+/* ==============================================================
+   NAVIGACJA „Cofnij”
+================================================================ */
+Object.entries(prevButtons).forEach(([stepStr, btn]) => {
+    const stepNum = Number(stepStr);
+    btn === null || btn === void 0 ? void 0 : btn.addEventListener("click", () => showStep(stepNum - 1));
+});
+/* ==============================================================
+   KROK 3 – MATERIAŁ & ILOŚĆ
+================================================================ */
+const materialSelect = document.getElementById("material-select");
+materialSelect.addEventListener("change", e => {
+    order.material = e.target.value;
+});
+const quantityInput = document.getElementById("quantity");
+quantityInput.addEventListener("input", e => {
+    order.quantity = Number(e.target.value);
+});
+(_b = document.getElementById("to-4")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => {
+    if (!order.material)
+        order.material = materialSelect.value;
+    showStep(3); // krok‑4 (kontakt)
+});
+/* ==============================================================
+   KROK 4 – DANE KONTAKTOWE
+================================================================ */
+(_c = document.getElementById("to-5")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", () => {
+    const form = new FormData(document.getElementById("contact-form"));
+    order.contact = Object.fromEntries(form.entries());
+    // podsumowanie
+    const summaryDiv = document.getElementById("summary");
+    summaryDiv.innerHTML = `
+    <strong>Rodzaj:</strong> ${order.type} 
+    <strong>Parametry:</strong> ${JSON.stringify(order.params)} 
+    <strong>Materiał:</strong> ${order.material} 
+    <strong>Ilość:</strong> ${order.quantity} 
+    <strong>Dane kontaktowe:</strong> ${JSON.stringify(order.contact)}
+  `;
+    showStep(4); // krok‑5 (podsumowanie)
+});
+/* ==============================================================
+   KROK 5 – WYSŁANIE ZAPYTANIA
+================================================================ */
+const FORM_ENDPOINT = "https://formspree.io/f/your_form_id"; // <-- podmień na swój endpoint
+sendBtn.addEventListener("click", async () => {
+    const payload = {
+        ...order,
+        timestamp: new Date().toISOString()
+    };
+    try {
+        const resp = await fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        if (resp.ok) {
+            showStep(5); // krok‑6 (podziękowanie)
+        }
+        else {
+            alert("Wysyłka nie powiodła się – spróbuj ponownie.");
+        }
+    }
+    catch (e) {
+        console.error(e);
+        alert("Błąd podczas wysyłania. Sprawdź konsolę przeglądarki.");
+    }
+});
+/* ==============================================================
+   INICJALIZACJA – uruchamiamy pierwszy krok
+================================================================ */
+showStep(0); // startujemy od kroku‑1
