@@ -19,7 +19,7 @@ interface Order {
     phone?: string;
     address?: string;
   };
-  cart: OrderItem[];               // lista zamówień (funkcjonalność „koszyka”)
+  cart: OrderItem[];
 }
 
 /* Początkowy stan */
@@ -113,7 +113,6 @@ const translations: Record<Lang, Record<string, string>> = {
   }
 };
 
-/* Helper – zwraca przetłumaczony tekst */
 function t(key: keyof typeof translations["pl"]): string {
   return translations[currentLang][key] ?? key;
 }
@@ -122,12 +121,10 @@ function t(key: keyof typeof translations["pl"]): string {
    UTILS – zmiana kroków, progress‑bar, itp.
 ================================================================ */
 function showStep(idx: number): void {
-  // ukryj wszystkie sekcje
   steps.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove("active");
   });
-  // pokaż wybraną
   const target = document.getElementById(steps[idx]);
   if (target) target.classList.add("active");
 
@@ -143,9 +140,7 @@ function showStep(idx: number): void {
 /* ---- Progress bar ---- */
 function updateProgressBar(): void {
   progressSteps.forEach((el, i) => {
-    // podświetlamy aktualny krok
     el.classList.toggle("active", i === currentStep);
-    // zaznaczamy ukończone kroki
     el.classList.toggle("completed", i < currentStep);
   });
 }
@@ -155,14 +150,11 @@ function updateProgressBar(): void {
 ================================================================ */
 function applyTranslations(): void {
   document.title = t("title");
-  // wszystkie elementy posiadające atrybut data-key zostaną przetłumaczone
   document.querySelectorAll("[data-key]").forEach(node => {
     const key = (node as HTMLElement).dataset.key as keyof typeof translations["pl"];
     (node as HTMLElement).textContent = t(key);
   });
 }
-
-/* Uruchom tłumaczenia przy starcie */
 applyTranslations();
 
 /* ==============================================================
@@ -198,8 +190,11 @@ typeButtons.forEach(btn => {
     // pokaż ilustrację od razu
     setIllustration(type);
 
-    // automatycznie przejdź do kolejnego kroku (krok‑2)
-    showStep(1);
+    /* ---- TERAZ generujemy pola i przechodzimy do kroku‑2 ---- */
+    if (order.type) {
+      generateParamFields();   // <‑‑ TWÓJ NOWY KROK
+      showStep(1);             // przejście do kroku‑2 (parametry)
+    }
   });
 
   /* ---- podpowiedź graficzna (hover) ---- */
@@ -221,7 +216,6 @@ function setIllustration(type: string): void {
   const fileName = map[type];
   if (!fileName) return;
 
-  // usuń poprzedni <img>, jeśli istnieje
   illustrationDiv.innerHTML = "";
   const img = document.createElement("img");
   img.src = `assets/${fileName}`;
@@ -239,7 +233,7 @@ function hideIllustration(): void {
 ================================================================ */
 function generateParamFields(): void {
   const container = document.getElementById("params-form") as HTMLElement;
-  container.innerHTML = "";
+  container.innerHTML = ""; // wyczyść poprzednie pola (gdyby użytkownik wrócił i zmienił typ)
 
   const fieldDefs: Record<
     string,
@@ -330,7 +324,6 @@ function generateParamFields(): void {
     } else {
       input = document.createElement("input");
       input.type = "number";
-      // *** POPRAWIONA LINIA ***
       (input as HTMLInputElement).step = "any";
     }
 
@@ -432,4 +425,4 @@ sendBtn.addEventListener("click", async () => {
 /* ==============================================================
    INICJALIZACJA – uruchamiamy pierwszy krok
 ================================================================ */
-showStep(0); // startujemy od kroku‑1
+show
