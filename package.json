@@ -1,0 +1,24 @@
+{
+  "name": "springomat",
+  "version": "1.0.0",
+  "description": "Strona umożliwia krok po kroku skonfigurowanie sprężyny i wysłanie zapytania ofertowego. \r Projekt jest wspierany przez F i D.\r Projekt jest hostowany na GitHub Pages",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SPRINGOMAT/springomat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SPRINGOMAT/springomat/issues"
+  },
+  "homepage": "https://github.com/SPRINGOMAT/springomat#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
